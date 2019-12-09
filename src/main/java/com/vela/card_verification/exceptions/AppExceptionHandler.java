@@ -23,7 +23,7 @@ public class AppExceptionHandler {
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@ExceptionHandler(value = {org.springframework.web.client.HttpStatusCodeException.class})
+	@ExceptionHandler(value = {HttpStatusCodeException.class})
     public ResponseEntity<?> statusCodeException(HttpStatusCodeException ex, WebRequest request){
         InfoResponse response = new InfoResponse();
         response.setSuccess(false);
