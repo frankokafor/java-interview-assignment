@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import com.vela.card_verification.messages.ErrorMessage;
+
 
 @ControllerAdvice
 public class AppExceptionHandler {
