@@ -8,6 +8,7 @@ public class CardVerificationTestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CardVerificationTestApplication.class, args);
+		System.err.println("System Up");
 	}
 
 }
