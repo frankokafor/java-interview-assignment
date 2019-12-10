@@ -1,8 +1,11 @@
 package com.vela.card_verification.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.vela.card_verification.exceptions.CardInfoServiceException;
+import com.vela.card_verification.exceptions.InvalidInputException;
 import com.vela.card_verification.messages.ErrorMessages;
 import com.vela.card_verification.model.CardInfo;
 import com.vela.card_verification.model.Payload;
@@ -41,15 +45,26 @@ public class CardDetailsInfoServiceImpl implements CardDetailsInfoService {
 		return getAllCardStats(start, limit);
 	}
 
-	private String getFirstEightChar(String number) {
-		String num = number.substring(0, 8);
+	//checks if number is complete and valid, also remove spaces
+	private String validateInput(String number) {
+		String nospace = number.replaceAll("\\s+", "");
+		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(nospace);
+		boolean b = m.find();
+		if(nospace.chars().anyMatch(Character::isLetter) || b) {
+			throw new InvalidInputException(ErrorMessages.WRONG_INPUT.getErrorMessages());
+		}
+		String num = nospace.substring(0, 8);
 		return num;
 	}
 
+	/*
+	 * 
+	 */
 	private InfoResponse cardInfo(String number) {
 		int nums = 0;
-		String num = getFirstEightChar(number);
-		CardInfo info = repo.findByCardNumber(number);
+		String num = validateInput(number);
+		CardInfo info = repo.findByCardNumber(num);
 		if (info == null) {
 			ExtractPojo pojo = restTemplate.getForObject(binUrl + num, ExtractPojo.class);
 			if (pojo == null) {
@@ -57,6 +72,7 @@ public class CardDetailsInfoServiceImpl implements CardDetailsInfoService {
 			}
 			Payload payload = new Payload(pojo.getScheme(), pojo.getType(), pojo.getBank().getName());
 			CardInfo cardInfo = new CardInfo(payload, nums + 1, true, number);
+			cardInfo.setLatestRequest(new Date());
 			try {
 				CardInfo returnValue = repo.save(cardInfo);
 				if (returnValue != null)

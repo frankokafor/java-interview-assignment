@@ -4,7 +4,8 @@ public enum ErrorMessages {
 	
 	INTERNAL_SERVER_ERROR("ineternal server error. please contact the administrator"),
 	NO_RECORD_FOUND("the input record could not be found, card may not be registered on server"),
-	EMPTY_LIST("the input record could not be found, list is empty");
+	EMPTY_LIST("the input record could not be found, list is empty"),
+	WRONG_INPUT("invalid or incomplete card number");
 	
 
 	
