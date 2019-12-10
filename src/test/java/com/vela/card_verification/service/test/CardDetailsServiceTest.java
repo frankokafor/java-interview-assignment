@@ -110,6 +110,9 @@ class CardDetailsServiceTest {
 		assertThrows(InvalidInputException.class, () -> {
 			service.getCardInfo("418745173ygfdcvfrew");
 		});
+		when(repo.findByCardNumber("4187451728321110")).thenReturn(null);
+		when(repo.save(any(CardInfo.class))).thenReturn(info);
+		verify(restTemplate,times(0)).getForObject("https://lookup.binlist.net/4187451728321110", ExtractPojo.class);
 	}
 
 }
