@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Credit Card Verification</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <script type="text/javascript">
+        	function submits(){
+        		var actions = "http://localhost:8089/show/" + document.getElementById("num").value;
+        		var myForm = document.getElementById("new_form");
+        		myForm.action = actions;
+        	}
+        </script>
+    </head>
+<body>
+		<div align="center">
+			<h1>Verify Your Credit Card</h1><br/>
+			<a href="http://localhost:8089/show/all">View Cards Data Stats</a>
+            <br/><br/>
+			<form action="http://localhost:8089/show/" method="get" id="new_form" onsubmit="submits()">
+				<label>Input Card Number: </label>
+				<input type="text" id="num"/><br/><br/>
+				<button type="submit">Verify</button>
+			</form>
+		</div>
+	
+</body>
+</html>
