@@ -25,6 +25,7 @@ response:
 ```
 to get statistics of all saved cards
 - localhost:8080/api/v1/card-scheme/stats?start=1&limit=3
+default param = start=0, limit=25
 ```json
 {
     "success": true,
@@ -32,7 +33,7 @@ to get statistics of all saved cards
     "limit": Number,
     "size": Number,
     "payload": {
-      "card number" : Integer (or null)
+      "string" : Integer (or null)
       }
 ```
 
