@@ -3,6 +3,8 @@ package com.vela.card_verification.service.test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -83,6 +85,7 @@ class CardDetailsServiceTest {
 		InfoResponse res = service.getCardInfo("4187451728321110");
 		assertNotNull(res);
 		assertEquals(res.getSuccess(), info.getSuccess());
+		verify(restTemplate,times(0)).getForObject("4187451728321110", ExtractPojo.class);
 	}
 
 	@Test
