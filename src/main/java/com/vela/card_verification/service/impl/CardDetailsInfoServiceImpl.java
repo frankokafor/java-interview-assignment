@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import com.vela.card_verification.exceptions.CardInfoServiceException;
 import com.vela.card_verification.exceptions.InvalidInputException;
 import com.vela.card_verification.messages.ErrorMessages;
