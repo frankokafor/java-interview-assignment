@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.client.RestTemplate;
@@ -35,12 +36,13 @@ class CardDetailsServiceTest {
 	@Mock
 	RestTemplate restTemplate;
 	
+	@Value("${binlist.url}")
+	String binUrl;
+	
 	CardInfo info;
 	InfoResponse response;
 	Payload payload;
 	Bank bank;
-	Country country;
-	com.vela.card_verification.pojo.Number number;
 
 
 	@BeforeEach
@@ -57,13 +59,6 @@ class CardDetailsServiceTest {
 		bank = new Bank();
 		bank.setName("uba");
 		bank.setPhone("09066677742");
-		country = new Country();
-		country.setCurrency("naira");
-		country.setName("nigeria");
-		country.setLatitude(3);
-		number = new Number();
-		number.setLength(4);
-		number.setLuhn(true);
 
 	}
 
@@ -101,7 +96,7 @@ class CardDetailsServiceTest {
 		});
 		when(repo.findByCardNumber("4187451728321110")).thenReturn(null);
 		when(repo.save(any(CardInfo.class))).thenReturn(info);
-		verify(restTemplate,times(0)).getForObject("https://lookup.binlist.net/4187451728321110", ExtractPojo.class);
+		verify(restTemplate,times(0)).getForObject(binUrl + "4187451728321110", ExtractPojo.class);
 	}
 
 }
