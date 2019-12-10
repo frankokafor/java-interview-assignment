@@ -118,7 +118,7 @@ public class CardDetailsInfoServiceImpl implements CardDetailsInfoService {
 
 	@Override
 	public List<CardInfo> allCards() {
-		return repo.getAll();
+		return repo.findAll();
 	}
 
 }

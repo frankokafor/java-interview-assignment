@@ -18,6 +18,5 @@ public interface CardInfoRepository extends PagingAndSortingRepository<CardInfo,
 	
 	CardInfo findByCardNumber(String cardNumber);
 	
-	@Query(value = "SELECT * FROM card_info",nativeQuery = true)
-	List<CardInfo> getAll();
+	List<CardInfo> findAll();
 }
