@@ -10,7 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.client.RestTemplate;
+
+import com.vela.card_verification.exceptions.CardInfoServiceException;
+import com.vela.card_verification.exceptions.InvalidInputException;
 import com.vela.card_verification.model.CardInfo;
 import com.vela.card_verification.model.Payload;
 import com.vela.card_verification.pojo.Bank;
@@ -77,16 +82,31 @@ class CardDetailsServiceTest {
 		when(repo.save(any(CardInfo.class))).thenReturn(info);
 		InfoResponse res = service.getCardInfo("4187451728321110");
 		assertNotNull(res);
+		assertEquals(res.getSuccess(), info.getSuccess());
 	}
 
 	@Test
 	void testGetCardStats() {
-		fail("Not yet implemented");
+		Pageable request = PageRequest.of(0, 2);
+		when(repo.allCards(request)).thenReturn(null);
+		assertThrows(NullPointerException.class, () -> {
+			service.getCardStats(0, 2);
+		});
 	}
 
 	@Test
-	void testAllCards() {
-		fail("Not yet implemented");
+	void test_CardInfoServiceException() {
+		when(repo.findByCardNumber(anyString())).thenReturn(null);
+		assertThrows(CardInfoServiceException.class, () -> {
+			service.getCardInfo("41874517345678976");
+		});
+	}
+	
+	@Test
+	void test_InvalidInputException() {
+		assertThrows(InvalidInputException.class, () -> {
+			service.getCardInfo("418745173ygfdcvfrew");
+		});
 	}
 
 }
