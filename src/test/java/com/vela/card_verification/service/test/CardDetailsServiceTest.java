@@ -1,8 +1,7 @@
 package com.vela.card_verification.service.test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,7 +36,6 @@ class CardDetailsServiceTest {
 	RestTemplate restTemplate;
 	
 	CardInfo info;
-	ExtractPojo pojo;
 	InfoResponse response;
 	Payload payload;
 	Bank bank;
@@ -49,13 +47,9 @@ class CardDetailsServiceTest {
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		info = new CardInfo();
-		pojo = new ExtractPojo();
 		response = new InfoResponse();
 		info.setSearchAmount(3);
 		info.setSuccess(true);
-		pojo.setType("debit");
-		pojo.setBrand("diamond");
-		pojo.setScheme("money");
 		response.setSuccess(true);
 		payload = new Payload();
 		payload.setBank("fidelity");
@@ -70,12 +64,7 @@ class CardDetailsServiceTest {
 		number = new Number();
 		number.setLength(4);
 		number.setLuhn(true);
-		pojo = new ExtractPojo();
-		pojo.setBank(bank);
-		pojo.setBrand("global");
-		pojo.setCountry(country);
-		pojo.setNumber(number);
-		pojo.setPrepaid(true);
+
 	}
 
 	@Test
