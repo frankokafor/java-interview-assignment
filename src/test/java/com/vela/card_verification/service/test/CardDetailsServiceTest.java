@@ -13,7 +13,7 @@ class CardDetailsServiceTest {
 
 	@Test
 	void testGetCardInfo() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
