@@ -58,7 +58,8 @@ public class CardDetailsInfoServiceImpl implements CardDetailsInfoService {
 		return num;
 	}
 
-	/*
+	/*takes in the validated card number and checks if its already in the database
+	 * if not it makes an external api call
 	 * 
 	 */
 	private InfoResponse cardInfo(String number) {
@@ -82,8 +83,7 @@ public class CardDetailsInfoServiceImpl implements CardDetailsInfoService {
 			}
 		}
 		info.setSearchAmount(info.getSearchAmount() + 1);
-		CardInfo returnValue = repo.save(info);
-		return cardResponse(returnValue);
+		return cardResponse(repo.save(info));
 	}
 
 	private InfoResponse cardResponse(CardInfo info) {
