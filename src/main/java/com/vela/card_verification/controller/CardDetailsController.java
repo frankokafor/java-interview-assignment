@@ -1,6 +1,7 @@
 package com.vela.card_verification.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vela.card_verification.model.CardInfo;
 import com.vela.card_verification.responses.InfoResponse;
+import com.vela.card_verification.responses.StatsResponse;
 import com.vela.card_verification.service.CardDetailsInfoService;
 
 @Controller
@@ -55,9 +57,12 @@ public class CardDetailsController {
 	}
 	
 	@RequestMapping("/show/all")
-	public String showStats(Model model) {
-		List<CardInfo> cards = service.allCards();
-		model.addAttribute("cards", cards);
+	public String showStats(Model model,@RequestParam(value = "start", defaultValue = "0") int start
+			,@RequestParam(value = "limit", defaultValue = "25") int limit) {
+		StatsResponse res = service.getCardStats(start, limit);
+		Map<String, Integer> map = res.getPayload();
+		model.addAttribute("response", res);
+		model.addAttribute("map", map);
 		return "cards_stats";
 	}
 	

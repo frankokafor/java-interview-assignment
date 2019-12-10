@@ -9,27 +9,32 @@
     </head>
     <body>
         <div align = "center">
-            <h1>All Card Statistics</h1><br/>
-            <table border="1" cellpadding="10">
-                <thead>
-                    <tr>
-                        <th>Successful Verification</th>      
-                        <th>Card Number</th>
-                        <th>Number Of Search</th>
-                        <th>Card Scheme</th>
-                        <th>Card Type</th>                       
-                    </tr>     
-                </thead> 
-                <tbody>
-                    <tr th:each="card : ${cards}">
-                        <td th:text="${card.success}"></td>
-                        <td th:text="${card.cardNumber}"></td>
-                        <td th:text="${card.searchAmount}"></td>
-                        <td th:text="${card.payload.scheme}"></td>
-                        <td th:text="${card.payload.type}"></td> 
-                    </tr>
-                </tbody>
-            </table>
+            <h1>All Card Statistics</h1>
+            <table border="0" cellpadding="8">
+            		<tr>
+						<td>Successful Check:</td>
+						<td th:text="${response.success}"><td/>
+					<tr/>
+					<tr>
+						<td>Start:</td>
+						<td th:text="${response.start}"><td/>
+					<tr/>
+					<tr>
+						<td>Limit:</td>
+						<td th:text="${response.limit}"><td/>
+					<tr/>
+					<tr>
+						<td>Size:</td>
+						<td th:text="${response.size}"><td/>
+					<tr/>
+					<td>payload:  {</td>
+					<tr th:each="entry : ${map}">
+						<td th:text="${entry.key}"></td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<td th:text="${entry.value}"></td>
+					<tr/>
+					<td> }</td>
+			</table>
         </div>
     </body>
 </html>
