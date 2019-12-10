@@ -17,7 +17,7 @@ import com.vela.card_verification.responses.InfoResponse;
 @ControllerAdvice
 public class AppExceptionHandler {
 
-	@ExceptionHandler(value = { CardInfoServiceException.class, InvalidInputException.class })
+	@ExceptionHandler(value = { CardInfoServiceException.class })
 	public ResponseEntity<Object> userServiceExceptionHandler(CardInfoServiceException ex, WebRequest request) {
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -35,5 +35,11 @@ public class AppExceptionHandler {
 	public ResponseEntity<Object> otherExceptionHandler(Exception ex, WebRequest request) {
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(value = {InvalidInputException.class })
+	public ResponseEntity<Object> InvalidInputException(InvalidInputException ex, WebRequest request) {
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
+		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
