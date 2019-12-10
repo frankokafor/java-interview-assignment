@@ -4,7 +4,6 @@
         <title>Credit Card Verification</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="mainpage.css">
         <script type="text/javascript">
         	function submits(){
         		var actions = "http://localhost:8089/api/v1/show/" + document.getElementById("num").value;
@@ -25,13 +24,12 @@
 			<h1>Get Log Stats</h1><br/>
 			<form action="http://localhost:8089/api/v1/show/all" method="get">
 				<label>Input Card Number: </label>
-				<input type="text" id="num" name="start"/>
+				<input type="text" id="num2" name="start"/>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<label>Input Card Number: </label>
-				<input type="text" id="num" name="limit"/><br/><br/>
+				<input type="text" id="num3" name="limit"/><br/><br/>
 				<button type="submit" id="submit">Check Stats</button>
 			</form>
 		</div>
-	
 </body>
 </html>

@@ -12,7 +12,7 @@
             <h1>All Card Statistics</h1>
             <table border="0" cellpadding="8">
             		<tr>
-						<td>Successful Check:</td>
+						<td>Check Status:</td>
 						<td th:text="${response.success}"><td/>
 					<tr/>
 					<tr>
@@ -28,11 +28,20 @@
 						<td th:text="${response.size}"><td/>
 					<tr/>
 					<td>payload:  {</td>
-					<tr th:each="entry : ${map}">
-						<td th:text="${entry.key}"></td>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<td th:text="${entry.value}"></td>
-					<tr/>
+					<table border="0" cellpadding="10">
+			                <thead>
+			                    <tr>
+			                        <th>Card Number</th>      
+			                        <th>Hits</th>                        
+			                    </tr>     
+			                </thead> 
+			                <tbody>
+			                	<tr th:each="entry : ${map}">
+									<td th:text="${entry.key}"></td>
+									<td th:text="${entry.value}"></td>
+								<tr/>
+			                <tbody/>
+			           <table/>
 					<td> }</td>
 			</table>
         </div>

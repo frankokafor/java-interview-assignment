@@ -1,7 +1,5 @@
 package com.vela.card_verification.repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +15,4 @@ public interface CardInfoRepository extends PagingAndSortingRepository<CardInfo,
 	Page<CardInfo> allCards(Pageable page);
 	
 	CardInfo findByCardNumber(String cardNumber);
-	
-	List<CardInfo> findAll();
 }

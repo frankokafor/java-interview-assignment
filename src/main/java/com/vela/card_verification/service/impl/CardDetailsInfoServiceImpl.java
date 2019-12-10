@@ -56,7 +56,7 @@ public class CardDetailsInfoServiceImpl implements CardDetailsInfoService {
 		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
 		Matcher m = p.matcher(nospace);
 		boolean b = m.find();
-		if(nospace.chars().anyMatch(Character::isLetter) || b) {
+		if(nospace.chars().anyMatch(Character::isLetter) || b || number.length() < 8) {
 			log.info("invalid card number");
 			throw new InvalidInputException(ErrorMessages.WRONG_INPUT.getErrorMessages());
 		}
@@ -128,10 +128,4 @@ public class CardDetailsInfoServiceImpl implements CardDetailsInfoService {
 		response.setSuccess(true);
 		return response;
 	}
-
-	@Override
-	public List<CardInfo> allCards() {
-		return repo.findAll();
-	}
-
 }

@@ -11,6 +11,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.context.request.WebRequest;
 
 import com.vela.card_verification.messages.ErrorMessage;
+import com.vela.card_verification.messages.ErrorMessages;
 import com.vela.card_verification.responses.InfoResponse;
 
 
@@ -40,6 +41,12 @@ public class AppExceptionHandler {
 	@ExceptionHandler(value = {InvalidInputException.class })
 	public ResponseEntity<Object> InvalidInputException(InvalidInputException ex, WebRequest request) {
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
+		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(value = {NullPointerException.class })
+	public ResponseEntity<Object> NullPointerException(NullPointerException ex, WebRequest request) {
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), ErrorMessages.NO_RECORD_FOUND.getErrorMessages());
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
